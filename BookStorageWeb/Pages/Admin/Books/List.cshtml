@@ -1,0 +1,87 @@
+﻿@page
+@model BookStorageWeb.Pages.Admin.Books.ListModel
+@{
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+
+<div class="bg-secondary bg-opacity-10 py-2 mb-5">
+    <div class="container">
+        <h1>Lista pozycji</h1>
+    </div>
+</div>
+
+
+<partial name="_Notification">
+
+    @if (Model.Book != null && Model.Book.Any())
+    {
+       <div class="container pt-5 pb-4">
+           <div class="container">
+               <div class="row">
+               @foreach (var bookItem in Model.Book)
+               {
+                    <div class="c-col-8 col-md-6 col-lg-3 mb-3">
+                       <div class="card">
+                           <img src="https://img.freepik.com/free-photo/beautiful-landscape-from-magazine-coming-life_23-2151158506.jpg?t=st=1705944224~exp=1705947824~hmac=1ef360510122ded2e714f40fc6ef27f3d29a17e003a798cd9f0d27f6c7c9a4ae&w=1380" class="card-img-top" alt="..." style="max-height: 250px;">
+                           <div class="card-body">
+                               <h4 class="card-title">@bookItem.Title</h4>
+                               <h5 class="card-subtitle mb-2 text-body-secondary">@bookItem.Author</h5>
+                               <p class="card-title mb-2">@bookItem.Location</p>
+                           </div>
+                                @if (signInManager.IsSignedIn(User))
+                                {
+                                    <div class="card-footer">
+                                        <button type="button" class="btn btn-outline-primary me-2 mb-2"><a class="text-black text-decoration-none" href="/Admin/Books/Edit/@bookItem.Id">Edytuj</a></button>
+                                    </div>
+                                }
+                       </div>
+                   </div>
+               }
+               </div>
+           </div>
+       </div>
+} else {
+<div class="container">
+    <p>Nie znaleziono rekordu!</p>
+</div>
+}
+
+    <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+        <section class="border-top">
+            <div class="container text-center text-md-start mt-5">
+                <div class="row mt-3">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <i class="fas fa-gem"></i>BookStorageWeb
+                        </h6>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non lobortis sapien. Nullam scelerisque faucibus enim, non condimentum massa egestas in.
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Przydatne Linki
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset">Pomoc</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">Kontakt</h6>
+                        <p><i class="fas fa-home"></i> Złota 999/38, Warszawa, Polska</p>
+                        <p>
+                            <i class="fas fa-envelope"></i>
+                            test@gmail.com
+                        </p>
+                        <p><i class="fas fa-phone"></i> +48 111 111 111</p>
+                        <p><i class="fas fa-print"></i> +48 222 222 222</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2024 Copyright:
+            <span class="fw-bold">BookStorageWeb - Jarosław Grzęda</span>
+        </div>
+    </footer>
